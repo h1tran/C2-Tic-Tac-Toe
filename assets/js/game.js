@@ -30,7 +30,7 @@ function draw() {
         for (let j = 0; j < 3; j++) {
             hasState[currentCount] = false;
             td = document.createElement('td');
-            td.setAttribute('style', 'padding: 0; border: solid 0.6rem black;');
+            td.setAttribute('style', 'padding: 0; border: solid 0.7rem black;');
             let tileSpace = document.createElement('div');
             tileSpace.id = currentCount;
             tileSpace.classList.add('flex');
