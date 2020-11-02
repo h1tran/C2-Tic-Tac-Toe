@@ -1,0 +1,58 @@
+body, html {
+    margin: 0 auto;
+    padding: 0;
+    height: 100%;
+    font-size: 10px;
+}
+
+.roboto {
+    font-size: 6rem;
+    font-weight: 900;
+    font-family: 'Roboto', sans-serif;
+}
+
+.body-center {
+    height: 100%;
+}
+
+.content {
+    position: absolute;
+    left: auto;
+    right: auto;
+}
+
+.user-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.line {
+    display: block;
+    position: absolute;
+    width: 0rem;
+    border-top: solid 0.6rem rgb(240, 0, 0);
+    transition: all .5s ease-in-out;
+    z-index: 1;
+    left: 0;
+    right: auto;
+}
+
+.toggle {
+    width: 46.2rem;
+}
