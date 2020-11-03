@@ -94,12 +94,22 @@ function playerState(num) {
 // For example, diagonals always need the center piece to match the corresponding corner.
 function checkVictory() {
     let text = undefined;
+    document.getElementById("red-line").setAttribute('style', 'top: auto; bottom: auto; left: auto; right: auto; transform: rotate(0deg);');
     // Check row
     for (let j = 0; j < 9; j += 3)
         if (entry[j] != null)
             if (entry[j] === entry[j + 1] && entry[j] === entry[j + 2]) {
                 stateVictory = true;
                 text = 'Player ' + entry[j] + ' has won!';
+                document.getElementById("red-line").setAttribute('style', 'width: 46.4rem; transform: rotate(0deg);');
+                switch (j) {
+                    case 0:
+                        document.getElementById("red-line").setAttribute('style', 'top: 7.2rem;');
+                        break;
+                    case 6:
+                        document.getElementById("red-line").setAttribute('style', 'bottom: 7.2rem;');
+                        break;
+                }
             }
     // Check column
     for (let i = 0; i < 3; i++)
@@ -107,6 +117,15 @@ function checkVictory() {
             if (entry[i] === entry[i + 3] && entry[i] === entry[i + 6]) {
                 stateVictory = true;
                 text = 'Player ' + entry[i] + ' has won!';
+                document.getElementById("red-line").setAttribute('style', 'width: 46.4rem; transform: rotate(90deg);');
+                switch (i) {
+                    case 0:
+                        document.getElementById("red-line").setAttribute('style', 'transform: translateX(-33.8%) rotate(90deg);');
+                        break;
+                    case 2:
+                        document.getElementById("red-line").setAttribute('style', 'transform: translateX(33.8%) rotate(90deg);');
+                        break;
+                }
             }
     // Check diagonals
     let a = 0;
@@ -114,16 +133,19 @@ function checkVictory() {
         if (entry[a] === entry[a + 4] && entry[a] === entry[a + 8]) {
             stateVictory = true;
             text = 'Player ' + entry[a + 4] + ' has won!';
+            document.getElementById("red-line").setAttribute('style', 'width: 64rem; transform: rotate(45deg);');
         }
         else if (entry[a + 2] === entry[a + 4] && entry[a + 2] === entry[a + 6]) {
             stateVictory = true;
             text = 'Player ' + entry[a + 4] + ' has won!';
+            document.getElementById("red-line").setAttribute('style', 'width: 64rem; transform: rotate(135deg);');
         }
     if (!stateVictory) {
         if (playerCount == 9)
             text = 'Nobody won!';
     }
-    else
+    else {
         document.getElementById("red-line").classList.toggle("toggle");
+    }
     return text;
 }

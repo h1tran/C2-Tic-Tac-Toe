@@ -45,14 +45,15 @@ body, html {
 .line {
     display: block;
     position: absolute;
-    width: 0rem;
-    border-top: solid 0.6rem rgb(240, 0, 0);
-    transition: all .5s ease-in-out;
+    background-color: red;
+    opacity: 0;
+    height: 0.6rem;
+    width: 46.4rem;
+    border-radius: 20rem;
+    transition: opacity .25s ease-in-out;
     z-index: 1;
-    left: 0;
-    right: auto;
 }
 
 .toggle {
-    width: 46.6rem;
+    opacity: 1;
 }
