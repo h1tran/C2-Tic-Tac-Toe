@@ -1,5 +1,6 @@
 var tbl = document.createElement('table');
-tbl.setAttribute('style', 'border-collapse: collapse; border-style: hidden; border-spacing: 0px')
+tbl.id = 'table';
+tbl.setAttribute('style', 'border-collapse: collapse; border-style: hidden; border-spacing: 0px');
 var tbody = document.createElement('tbody');
 var tr = document.createElement('tr');
 var td = document.createElement('td');
@@ -13,9 +14,10 @@ var stateVictory = false;
 var checkPlayer = true;
 var result = undefined;
 var waitResponse = false;
+var toggleNight = false;
 
 draw();
-window.addEventListener('click', function () {
+document.getElementById('body').addEventListener('click', function () {
     if (result != null) {
         if (waitResponse)
             clear();
@@ -24,13 +26,26 @@ window.addEventListener('click', function () {
     }
 })
 
+var tooltips = document.querySelectorAll('#info, #moon, #bot');
+for (let b = 0; b < tooltips.length; b++) {
+    tooltips[b].addEventListener('mouseenter', function () {
+        tooltips[b].children[0].classList.toggle('toggle-menu');
+    })
+    tooltips[b].addEventListener('mouseleave', function () {
+        tooltips[b].children[0].classList.toggle('toggle-menu');
+    })
+}
+
 function draw() {
     for (let i = 0; i < 3; i++) {
         tr = document.createElement('tr');
         for (let j = 0; j < 3; j++) {
             hasState[currentCount] = false;
             td = document.createElement('td');
-            td.setAttribute('style', 'padding: 0; border: solid 0.7rem black;');
+            if (!toggleNight)
+                td.setAttribute('style', 'padding: 0; border: solid 0.7rem black;');
+            else
+                td.setAttribute('style', 'padding: 0; border: solid 0.7rem white;');
             let tileSpace = document.createElement('div');
             tileSpace.id = currentCount;
             tileSpace.classList.add('flex');
@@ -58,13 +73,12 @@ function draw() {
 }
 
 function clear() {
-    for (let c = 0; c <= 8; c++) {
-        let node = document.getElementById(c);
-        node.innerHTML = "";
-    }
+    let node = document.getElementById("table");
+    node.querySelectorAll('*').forEach(element => element.remove());
     if (stateVictory)
         document.getElementById("red-line").classList.toggle("toggle");
     reset();
+    draw();
 }
 
 function reset() {
@@ -148,4 +162,20 @@ function checkVictory() {
         document.getElementById("red-line").classList.toggle("toggle");
     }
     return text;
+}
+
+function nightMode() {
+    if (!toggleNight) {
+        toggleNight = true;
+        document.getElementById('body').style.backgroundColor = 'black';
+        document.getElementById('night').style.color = 'white';
+        document.getElementsByClassName
+        tbl.setAttribute('style', 'color: white; border-collapse: collapse; border-style: hidden; border-spacing: 0px');
+    } else {
+        toggleNight = false;
+        document.getElementById('body').style.backgroundColor = 'white';
+        document.getElementById('night').style.color = 'black';
+        tbl.setAttribute('style', 'color: black; border-collapse: collapse; border-style: hidden; border-spacing: 0px');
+    }
+    clear();
 }

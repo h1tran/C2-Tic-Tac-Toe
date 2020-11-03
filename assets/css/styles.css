@@ -32,6 +32,8 @@ body, html {
     align-items: center;
     justify-content: center;
     text-align: center;
+    column-gap: 1.4rem;
+    row-gap: 0.4rem;
 }
 
 .flex-column {
@@ -40,6 +42,11 @@ body, html {
 
 .flex-row {
     flex-direction: row;
+}
+
+.right {
+    width: 100%;
+    justify-content: flex-end;
 }
 
 .line {
@@ -56,4 +63,44 @@ body, html {
 
 .toggle {
     opacity: 1;
+}
+
+.position-menu {
+    position: absolute;
+    z-index: 2;
+    top: -35%;
+    right: 0%;
+    width: 20rem;
+}
+
+.button-styling {
+    padding: 0.8rem;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: gray;
+}
+
+.small {
+    font-size: 0.4em;
+}
+
+.xsmall {
+    font-size: 0,2em;
+}
+
+.border {
+    padding: 0.25rem;
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+
+.initial-menu {
+    opacity: 0;
+    margin-right: -0.8rem;
+}
+
+.toggle-menu {
+    opacity: 1;
+    margin-right: 0rem;
+    transition: all .4s ease-in-out;
 }
