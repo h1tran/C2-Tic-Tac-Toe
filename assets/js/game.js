@@ -28,10 +28,10 @@ document.getElementById('body').addEventListener('click', function () {
 
 var tooltips = document.querySelectorAll('#info, #moon, #bot');
 for (let b = 0; b < tooltips.length; b++) {
-    tooltips[b].addEventListener('mouseenter', function () {
+    tooltips[b].children[1].addEventListener('mouseenter', function () {
         tooltips[b].children[0].classList.toggle('toggle-menu');
     })
-    tooltips[b].addEventListener('mouseleave', function () {
+    tooltips[b].children[1].addEventListener('mouseleave', function () {
         tooltips[b].children[0].classList.toggle('toggle-menu');
     })
 }

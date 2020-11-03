@@ -97,6 +97,7 @@ body, html {
 .initial-menu {
     opacity: 0;
     margin-right: -0.8rem;
+    transition: all .3s ease-in-out;
 }
 
 .toggle-menu {
