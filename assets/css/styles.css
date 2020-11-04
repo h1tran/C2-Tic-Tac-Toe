@@ -52,7 +52,7 @@ body, html {
 .line {
     display: block;
     position: absolute;
-    background-color: red;
+    background-color: #c51515;
     opacity: 0;
     height: 0.6rem;
     width: 46.4rem;
@@ -70,7 +70,6 @@ body, html {
     z-index: 2;
     top: -35%;
     right: -2.5%;
-    width: 20rem;
 }
 
 .button-styling {
@@ -84,10 +83,6 @@ body, html {
     font-size: 0.4em;
 }
 
-.xsmall {
-    font-size: 0,2em;
-}
-
 .border {
     padding: 0.25rem;
     font-weight: 300;
@@ -97,11 +92,23 @@ body, html {
 .initial-menu {
     opacity: 0;
     margin-right: -0.8rem;
-    transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out, color 0s;
 }
 
 .toggle-menu {
     opacity: 1;
     margin-right: 0rem;
-    transition: all .4s ease-in-out;
+    transition: all .3s ease-in-out, color 0s;
+}
+
+.initial-result {
+    opacity: 0;
+    margin-top: -1rem;
+    transition: all .3s ease-in-out;
+}
+
+.toggle-result {
+    opacity: 1;
+    margin-top: 0;
+    transition: all .3s ease-in-out;
 }

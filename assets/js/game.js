@@ -5,6 +5,11 @@ var tbody = document.createElement('tbody');
 var tr = document.createElement('tr');
 var td = document.createElement('td');
 
+var divResult = document.createElement('div');
+divResult.id = 'result';
+divResult.classList.add('roboto', 'flex', 'initial-result');
+divResult.setAttribute('style', 'font-size: 1.4rem; width: 100%; position: absolute; z-index: 5; top: 20.2rem;');
+
 var hasState = [];
 var entry = [];
 var currentCount = 0;
@@ -45,7 +50,7 @@ function draw() {
             if (!toggleNight)
                 td.setAttribute('style', 'padding: 0; border: solid 0.7rem black;');
             else
-                td.setAttribute('style', 'padding: 0; border: solid 0.7rem white;');
+                td.setAttribute('style', 'padding: 0; border: solid 0.7rem #f9d276;');
             let tileSpace = document.createElement('div');
             tileSpace.id = currentCount;
             tileSpace.classList.add('flex');
@@ -58,7 +63,16 @@ function draw() {
                         playerCount++;
                         result = checkVictory();
                         if (result != null)
-                            console.log(result);
+                            setTimeout(function () {
+                                var resultText = document.createElement('div');
+                                if (toggleNight)
+                                    resultText.setAttribute('style', 'color: #f9d276; background-color: black; padding: 2rem 7rem; border: solid 1px #f9d276;');
+                                else
+                                    resultText.setAttribute('style', 'color: black; background-color: white; padding: 2rem 7rem; border: solid 1px black;');
+                                resultText.innerHTML = result;
+                                divResult.classList.add('toggle-result');
+                                divResult.appendChild(resultText);
+                            }, 400)
                     }
                 }
             });
@@ -70,6 +84,7 @@ function draw() {
     }
     tbl.appendChild(tbody);
     document.getElementById('playable').appendChild(tbl);
+    document.getElementById('playable').appendChild(divResult);
 }
 
 function clear() {
@@ -79,6 +94,8 @@ function clear() {
         document.getElementById("red-line").classList.toggle("toggle");
     reset();
     draw();
+    divResult.classList.remove('toggle-result');
+    divResult.innerHTML = "";
 }
 
 function reset() {
@@ -168,9 +185,8 @@ function nightMode() {
     if (!toggleNight) {
         toggleNight = true;
         document.getElementById('body').style.backgroundColor = 'black';
-        document.getElementById('night').style.color = 'white';
-        document.getElementsByClassName
-        tbl.setAttribute('style', 'color: white; border-collapse: collapse; border-style: hidden; border-spacing: 0px');
+        document.getElementById('night').style.color = '#f9d276';
+        tbl.setAttribute('style', 'color: #f9d276; border-collapse: collapse; border-style: hidden; border-spacing: 0px');
     } else {
         toggleNight = false;
         document.getElementById('body').style.backgroundColor = 'white';
@@ -178,4 +194,17 @@ function nightMode() {
         tbl.setAttribute('style', 'color: black; border-collapse: collapse; border-style: hidden; border-spacing: 0px');
     }
     clear();
+}
+
+function instructions() {
+    let divInstructions = document.createElement('div');
+    divInstructions.classList.add('flex', 'roboto', 'user-select');
+    divInstructions.setAttribute('style', 'position: absolute; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 3')
+    divInstructions.addEventListener('click', function () {
+        divInstructions.remove();
+    })
+    let divText = document.createElement('div');
+    divText.setAttribute('style', 'padding: 2rem 4rem; background-color: white; font-size: 1.6rem');
+    divInstructions.appendChild(divText);
+    document.body.appendChild(divInstructions);
 }
