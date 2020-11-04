@@ -7,8 +7,18 @@ var td = document.createElement('td');
 
 var divResult = document.createElement('div');
 divResult.id = 'result';
-divResult.classList.add('roboto', 'flex', 'initial-result');
+divResult.classList.add('roboto', 'flex', 'opacity', 'initial-result');
 divResult.setAttribute('style', 'font-size: 1.4rem; width: 100%; position: absolute; z-index: 5; top: 20.2rem;');
+
+var divParent = document.createElement('div');
+divParent.classList.add('flex', 'roboto', 'user-select');
+divParent.setAttribute('style', 'position: absolute; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 3; display: none; cursor: pointer;');
+divParent.addEventListener('click', function () {
+    divParent.style.display = 'none';
+})
+
+divParent.appendChild(document.getElementById('instructions'));
+document.body.appendChild(divParent);
 
 var hasState = [];
 var entry = [];
@@ -20,6 +30,8 @@ var checkPlayer = true;
 var result = undefined;
 var waitResponse = false;
 var toggleNight = false;
+
+var boxes = document.querySelectorAll('#night, #content');
 
 draw();
 document.getElementById('body').addEventListener('click', function () {
@@ -62,17 +74,22 @@ function draw() {
                         hasState[tileSpace.id] = true;
                         playerCount++;
                         result = checkVictory();
-                        if (result != null)
+                        if (result != null) {
+                            document.body.classList.toggle('body-click');
                             setTimeout(function () {
                                 var resultText = document.createElement('div');
                                 if (toggleNight)
-                                    resultText.setAttribute('style', 'color: #f9d276; background-color: black; padding: 2rem 7rem; border: solid 1px #f9d276;');
+                                    resultText.setAttribute('style', 'color: #f9d276; background-color: rgb(110, 88, 58); padding: 2rem 7rem; border: solid 1px #f9d276;');
                                 else
                                     resultText.setAttribute('style', 'color: black; background-color: white; padding: 2rem 7rem; border: solid 1px black;');
                                 resultText.innerHTML = result;
                                 divResult.classList.add('toggle-result');
                                 divResult.appendChild(resultText);
-                            }, 400)
+                            }, 150)
+                            setTimeout(function () {
+                                document.body.classList.toggle('body-click');   
+                            }, 450)
+                        }
                     }
                 }
             });
@@ -184,27 +201,22 @@ function checkVictory() {
 function nightMode() {
     if (!toggleNight) {
         toggleNight = true;
+        for (let a = 0; a < boxes.length; a++)
+            boxes[a].style.color = '#f9d276';
+        boxes[1].setAttribute('style', 'color: #f9d276; background-color: rgb(110, 88, 58); border: solid 1px #f9d276;');
         document.getElementById('body').style.backgroundColor = 'black';
-        document.getElementById('night').style.color = '#f9d276';
         tbl.setAttribute('style', 'color: #f9d276; border-collapse: collapse; border-style: hidden; border-spacing: 0px');
     } else {
         toggleNight = false;
+        for (let a = 0; a < boxes.length; a++)
+            boxes[a].style.color = 'black';
+        boxes[1].setAttribute('style', 'color: black; background-color: white; border: solid 1px black;');
         document.getElementById('body').style.backgroundColor = 'white';
-        document.getElementById('night').style.color = 'black';
         tbl.setAttribute('style', 'color: black; border-collapse: collapse; border-style: hidden; border-spacing: 0px');
     }
     clear();
 }
 
 function instructions() {
-    let divInstructions = document.createElement('div');
-    divInstructions.classList.add('flex', 'roboto', 'user-select');
-    divInstructions.setAttribute('style', 'position: absolute; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 3')
-    divInstructions.addEventListener('click', function () {
-        divInstructions.remove();
-    })
-    let divText = document.createElement('div');
-    divText.setAttribute('style', 'padding: 2rem 4rem; background-color: white; font-size: 1.6rem');
-    divInstructions.appendChild(divText);
-    document.body.appendChild(divInstructions);
+    divParent.style.display = 'block';
 }

@@ -18,25 +18,35 @@
             <div id="playable"></div>
             <div id="night" class="position-menu flex flex-column small right">
                 <div id="info" class="flex flex-row right">
-                    <div class="initial-menu border roboto">How to play</div>
+                    <div class="opacity initial-menu border roboto">How to play</div>
                     <div class="button-styling flex" onclick="instructions()">
                         <i class="fas fa-info-circle"></i>
                     </div>
                 </div>
                 <div id="moon" class="flex flex-row right">
-                    <div class="initial-menu border roboto">Toggle night mode</div>
+                    <div class="opacity initial-menu border roboto">Toggle night mode</div>
                     <div class="button-styling flex flex-row" onclick="nightMode()">
                         <i class="fas fa-moon"></i>
                     </div>
                 </div>
                 <div id="bot" class="flex flex-row right">
-                    <div class="initial-menu border roboto">Change player type</div>
+                    <div class="opacity initial-menu border roboto">Change player type</div>
                     <div class="button-styling flex">
                         <i class="fas fa-cog"></i>
                     </div>
                 </div>
             </div>
             <div id="red-line" class="line"></div>
+            <div id="instructions" class="flex flex-column body-center">
+                <div id="content" class="border-instructions small">
+                    <div class="flex flex-column margin-instructions large">
+                        <p>1. The game is played on a grid that measures 3 squares by 3 squares.</p>
+                        <p>2. You are <b>X</b>, your friend (or the computer) is <b>O</b>. Players take turns putting their marks in the empty squares.</p>
+                        <p>3. The first player to get 3 of their marks in a row <em>(up, down, across, or diagonally)</em> is the winner.</p>
+                        <p>4. When all 9 squares are full, the game is over. If no player has 3 marks in a row, the game ends in a tie.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
