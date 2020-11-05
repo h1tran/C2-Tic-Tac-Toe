@@ -43,6 +43,7 @@ document.getElementById('body').addEventListener('click', function () {
     }
 })
 
+// Event listener for option buttons
 var tooltips = document.querySelectorAll('#info, #moon, #bot');
 for (let b = 0; b < tooltips.length; b++) {
     tooltips[b].children[1].addEventListener('mouseenter', function () {
@@ -53,6 +54,7 @@ for (let b = 0; b < tooltips.length; b++) {
     })
 }
 
+// Draw the tic-tac-toe table
 function draw() {
     for (let i = 0; i < 3; i++) {
         tr = document.createElement('tr');
@@ -67,32 +69,6 @@ function draw() {
             tileSpace.id = currentCount;
             tileSpace.classList.add('flex');
             tileSpace.setAttribute('style', 'min-height: 15rem; min-width: 15rem; cursor: pointer;');
-            tileSpace.addEventListener('click', function () {
-                if (!hasState[tileSpace.id]) {
-                    if (!stateVictory) {
-                        tileSpace.innerHTML = playerState(tileSpace.id);
-                        hasState[tileSpace.id] = true;
-                        playerCount++;
-                        result = checkVictory();
-                        if (result != null) {
-                            document.body.classList.toggle('body-click');
-                            setTimeout(function () {
-                                var resultText = document.createElement('div');
-                                if (toggleNight)
-                                    resultText.setAttribute('style', 'color: #f9d276; background-color: #313131; padding: 2rem 7rem; border: solid 1px #f9d276;');
-                                else
-                                    resultText.setAttribute('style', 'color: black; background-color: white; padding: 2rem 7rem; border: solid 1px black;');
-                                resultText.innerHTML = result;
-                                divResult.classList.add('toggle-result');
-                                divResult.appendChild(resultText);
-                            }, 150)
-                            setTimeout(function () {
-                                document.body.classList.toggle('body-click');   
-                            }, 450)
-                        }
-                    }
-                }
-            });
             td.appendChild(tileSpace);
             tr.appendChild(td);
             currentCount++;
@@ -102,6 +78,39 @@ function draw() {
     tbl.appendChild(tbody);
     document.getElementById('playable').appendChild(tbl);
     document.getElementById('playable').appendChild(divResult);
+    drawEvent();
+}
+
+// Abstracting tic-tac-toe event listeners into new function call
+function drawEvent() {
+    for (let idCount = 0; idCount < 9; idCount++) {
+        document.getElementById(idCount).addEventListener('click', function () {
+            if (!hasState[idCount]) {
+                if (!stateVictory) {
+                    document.getElementById(idCount).innerHTML = playerState(idCount);
+                    hasState[idCount] = true;
+                    playerCount++;
+                    result = checkVictory();
+                    if (result != null) {
+                        document.body.classList.toggle('body-click');
+                        setTimeout(function () {
+                            var resultText = document.createElement('div');
+                            if (toggleNight)
+                                resultText.setAttribute('style', 'color: #f9d276; background-color: #313131; padding: 2rem 7rem; border: solid 1px #f9d276;');
+                            else
+                                resultText.setAttribute('style', 'color: black; background-color: white; padding: 2rem 7rem; border: solid 1px black;');
+                            resultText.innerHTML = result;
+                            divResult.classList.add('toggle-result');
+                            divResult.appendChild(resultText);
+                        }, 150)
+                        setTimeout(function () {
+                            document.body.classList.toggle('body-click');   
+                        }, 450)
+                    }
+                }
+            }
+        });
+    }
 }
 
 function clear() {
@@ -126,6 +135,7 @@ function reset() {
     waitResponse = false;
 }
 
+// Check entries and add it to entry array
 function playerState(num) {
     if (checkPlayer) {
         checkPlayer = false;
@@ -188,6 +198,7 @@ function checkVictory() {
             text = 'Player ' + entry[a + 4] + ' has won!';
             document.getElementById("red-line").setAttribute('style', 'width: 64rem; transform: rotate(135deg);');
         }
+    // Tie condition
     if (!stateVictory) {
         if (playerCount == 9)
             text = 'Nobody won!';
@@ -198,6 +209,7 @@ function checkVictory() {
     return text;
 }
 
+// Toggle display setting for night mode
 function nightMode() {
     if (!toggleNight) {
         toggleNight = true;
@@ -217,6 +229,7 @@ function nightMode() {
     clear();
 }
 
+// Toggle instructions to display
 function instructions() {
     divParent.style.display = 'block';
 }
