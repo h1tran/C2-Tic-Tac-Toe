@@ -4,6 +4,8 @@ tbl.setAttribute('style', 'border-collapse: collapse; border-style: hidden; bord
 var tbody = document.createElement('tbody');
 var tr = document.createElement('tr');
 var td = document.createElement('td');
+var resultText = document.createElement('div');
+resultText.innerHTML = null;
 
 var divResult = document.createElement('div');
 divResult.id = 'result';
@@ -30,12 +32,14 @@ var checkPlayer = true;
 var result = undefined;
 var waitResponse = false;
 var toggleNight = false;
+// When false: computer enabled, when true, second player enabled
+var togglePlayer = false;
 
 var boxes = document.querySelectorAll('#night, #content');
 
 draw();
 document.getElementById('body').addEventListener('click', function () {
-    if (result != null) {
+    if (resultText.innerHTML.length != 0) {
         if (waitResponse)
             clear();
         else
@@ -94,14 +98,7 @@ function drawEvent() {
                     if (result != null) {
                         document.body.classList.toggle('body-click');
                         setTimeout(function () {
-                            var resultText = document.createElement('div');
-                            if (toggleNight)
-                                resultText.setAttribute('style', 'color: #f9d276; background-color: #313131; padding: 2rem 7rem; border: solid 1px #f9d276;');
-                            else
-                                resultText.setAttribute('style', 'color: black; background-color: white; padding: 2rem 7rem; border: solid 1px black;');
-                            resultText.innerHTML = result;
-                            divResult.classList.add('toggle-result');
-                            divResult.appendChild(resultText);
+                            display(result);
                         }, 150)
                         setTimeout(function () {
                             document.body.classList.toggle('body-click');   
@@ -113,6 +110,18 @@ function drawEvent() {
     }
 }
 
+function display(text) {
+    for (let grid = 0; grid < 9; grid++)
+        document.getElementById(grid).style.pointerEvents = 'none';
+    if (toggleNight)
+        resultText.setAttribute('style', 'color: #f9d276; background-color: #313131; padding: 2rem 7rem; border: solid 1px #f9d276;');
+    else
+        resultText.setAttribute('style', 'color: black; background-color: white; padding: 2rem 7rem; border: solid 1px black;');
+    resultText.innerHTML = text;
+    divResult.classList.add('toggle-result');
+    divResult.appendChild(resultText);
+}
+
 function clear() {
     let node = document.getElementById("table");
     node.querySelectorAll('*').forEach(element => element.remove());
@@ -121,7 +130,10 @@ function clear() {
     reset();
     draw();
     divResult.classList.remove('toggle-result');
-    divResult.innerHTML = "";
+    divResult.innerHTML = '';
+    resultText.innerHTML = '';
+    for (let grid = 0; grid < 9; grid++)
+        document.getElementById(grid).style.pointerEvents = 'all';
 }
 
 function reset() {
@@ -232,4 +244,21 @@ function nightMode() {
 // Toggle instructions to display
 function instructions() {
     divParent.style.display = 'block';
+}
+
+function toggleOpponent() {
+    document.body.classList.toggle('body-click');
+    setTimeout(function () {
+        if (!togglePlayer) {
+            togglePlayer = true;
+            display('Computer enabled!');
+        }
+        else {
+            togglePlayer = false;
+            display('Player two enabled!');
+        }
+    }, 150)
+    setTimeout(function () {
+        document.body.classList.toggle('body-click');
+    }, 450)
 }

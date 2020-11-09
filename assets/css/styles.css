@@ -145,11 +145,11 @@ p {
 
 .initial-result {
     margin-top: -1rem;
-    transition: all .3s ease-in-out;
+    transition: all .225s ease-in-out;
 }
 
 .toggle-result {
     opacity: 1;
     margin-top: 0;
-    transition: all .3s ease-in-out;
+    transition: all .225s ease-in-out;
 }
